@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slices/userSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     handleTokenPresent();
@@ -20,7 +24,9 @@ const Login = () => {
       const res = await axiosInstance.post("/login", payload);
       const token = res?.data?.data?.token;
       localStorage.setItem("token", token);
-      navigate("/profile");
+      const decodedInfo = jwtDecode(token);
+      dispatch(loginUser(decodedInfo?.id));
+      navigate("/home");
     } catch (err) {
       console.error(err, "error");
     }

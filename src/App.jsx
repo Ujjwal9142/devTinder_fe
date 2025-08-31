@@ -1,18 +1,16 @@
-import Body from "./Body";
-import Login from "./components/Login";
+import Login from "./prelogin/Login";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Profile from "./components/Profile";
+import Home from "./postlogin/home";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
     <>
-      <Router basename="/">
+      <Router>
         <Routes>
-          <Route path="/" element={<Body />}>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
+          <Route path="/" element={<Login />} />
+          <Route path="/home/*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

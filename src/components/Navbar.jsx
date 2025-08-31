@@ -1,12 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../redux/slices/userSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    dispatch(logoutUser());
+    navigate("/");
   };
 
   return (
