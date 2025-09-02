@@ -4,11 +4,11 @@ import axiosInstance from "../config/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserFeed } from "../redux/slices/feedSlice";
 import UserCard from "../components/UserCard";
+import { genericErrorMessage } from "../utils/common";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const userFeed = useSelector((state) => state?.feed?.feed);
-  const genericErrorMessage = "Something went wrong";
 
   const getUserFeed = async () => {
     const payload = {

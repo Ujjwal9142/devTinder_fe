@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import { errorToastStyles } from "../utils/toastStyles";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { genericErrorMessage } from "../utils/common";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const genericErrorMessage = "Something went wrong";
 
   useEffect(() => {
     handleTokenPresent();

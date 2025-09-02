@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setUserId, setUserDetails } from "../redux/slices/userSlice";
 import { jwtDecode } from "jwt-decode";
 import Feed from "./Feed";
+import { genericErrorMessage } from "../utils/common";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Home = () => {
       const userDetails = res?.data?.data?.user;
       dispatch(setUserDetails(userDetails));
     } catch (err) {
-      console.error(err, "error");
+      toast(err?.response?.data?.message || genericErrorMessage, errorToastStyles);
     }
   };
 
