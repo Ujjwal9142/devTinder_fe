@@ -9,6 +9,8 @@ import { setUserId, setUserDetails } from "../redux/slices/userSlice";
 import { jwtDecode } from "jwt-decode";
 import Feed from "./Feed";
 import { genericErrorMessage } from "../utils/common";
+import { toast } from "react-toastify";
+import { errorToastStyles } from "../utils/toastStyles";
 
 const Home = () => {
   const dispatch = useDispatch();
