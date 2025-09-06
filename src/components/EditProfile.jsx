@@ -162,7 +162,10 @@ const EditProfile = () => {
         </div>
       </div>
 
-      <UserCard user={{ about, dateOfBirth: dob, firstName, lastName, gender, imageUrl, skills }} />
+      <UserCard
+        user={{ about, dateOfBirth: dob, firstName, lastName, gender, imageUrl, skills }}
+        isEditProfile
+      />
     </div>
   );
 };

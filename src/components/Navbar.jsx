@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/slices/userSlice";
+import { removeConnections } from "../redux/slices/connectionSlice";
+import { removeFeed } from "../redux/slices/feedSlice";
+import { removeRequests } from "../redux/slices/requestSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,6 +15,9 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logoutUser());
+    dispatch(removeConnections());
+    dispatch(removeFeed());
+    dispatch(removeRequests());
     navigate("/");
   };
 
