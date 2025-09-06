@@ -38,7 +38,7 @@ const Connections = () => {
           {connections?.map((item) => {
             const { firstName, lastName, dateOfBirth, gender, imageUrl, about } = item;
             return (
-              <div className="flex m-4 p-4 bg-base-300 rounded-lg w-1/3">
+              <div className="flex m-4 p-4 bg-base-300 rounded-lg w-1/3" key={item?._id}>
                 <div>
                   <img src={imageUrl} alt="user" className="w-20 h-20 rounded-full" />
                 </div>
