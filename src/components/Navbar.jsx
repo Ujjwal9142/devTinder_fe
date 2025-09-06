@@ -45,7 +45,22 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a onClick={() => document.activeElement.blur()}>Settings</a>
+                <Link
+                  to="/home/connections"
+                  className="justify-between"
+                  onClick={() => document.activeElement.blur()}
+                >
+                  Connections
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/home/requests"
+                  className="justify-between"
+                  onClick={() => document.activeElement.blur()}
+                >
+                  Requests
+                </Link>
               </li>
               <li onClick={handleLogout}>
                 <a>Logout</a>

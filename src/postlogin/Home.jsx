@@ -11,6 +11,8 @@ import Feed from "./Feed";
 import { genericErrorMessage } from "../utils/common";
 import { toast } from "react-toastify";
 import { errorToastStyles } from "../utils/toastStyles";
+import Connections from "../components/Connections";
+import Requests from "../components/Requests";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -49,6 +51,8 @@ const Home = () => {
         <Routes>
           <Route path="/" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/connections" element={<Connections />} />
+          <Route path="/requests" element={<Requests />} />
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       )}
