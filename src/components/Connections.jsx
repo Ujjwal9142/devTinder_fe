@@ -52,7 +52,7 @@ const Connections = () => {
           })}
         </div>
       ) : (
-        <div className="flex items-center justify-center inset-0 fixed">
+        <div className="flex items-center justify-center absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
           <h2 className="text-2xl">No connections yet!</h2>
         </div>
       )}
