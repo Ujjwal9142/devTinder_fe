@@ -1,6 +1,6 @@
 import Login from "./prelogin/Login";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "./postlogin/home";
+import Home from "./postlogin/Home.jsx";
 import NotFound from "./components/NotFound";
 import { ToastContainer } from "react-toastify";
 import Signup from "./prelogin/Signup";
