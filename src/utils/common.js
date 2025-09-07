@@ -5,3 +5,18 @@ export function getAge(dob) {
 }
 
 export const genericErrorMessage = "Something went wrong";
+
+export const genderOptions = [
+  {
+    name: "Male",
+    value: "male",
+  },
+  {
+    name: "Female",
+    value: "female",
+  },
+  {
+    name: "Other",
+    value: "other",
+  },
+];

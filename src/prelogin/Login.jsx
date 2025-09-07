@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../config/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { errorToastStyles } from "../utils/toastStyles";
 import Navbar from "../components/Navbar";
@@ -43,10 +43,10 @@ const Login = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center my-28">
-        <div className="card bg-base-300 w-[500px] shadow-sm">
-          <div className="card-body">
+        <div className="card bg-base-300 sm:w-[500px] w-11/12 shadow-sm">
+          <div className="card-body px-6">
             <h2 className="card-title justify-center">Login</h2>
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Email ID</legend>
                 <input
@@ -57,7 +57,7 @@ const Login = () => {
                 />
               </fieldset>
             </div>
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Password</legend>
                 <input
@@ -73,6 +73,12 @@ const Login = () => {
                 Login
               </button>
             </div>
+            <p className=" mt-4 font-semibold">
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-blue-600">
+                Sign Up
+              </Link>
+            </p>
           </div>
         </div>
       </div>

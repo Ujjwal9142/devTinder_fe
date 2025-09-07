@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./postlogin/home";
 import NotFound from "./components/NotFound";
 import { ToastContainer } from "react-toastify";
+import Signup from "./prelogin/Signup";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/home/*" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

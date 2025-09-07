@@ -1,65 +1,103 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import UserCard from "./UserCard";
-import { toast } from "react-toastify";
-import { genderOptions, genericErrorMessage } from "../utils/common";
-import { errorToastStyles, successToastStyles } from "../utils/toastStyles";
 import axiosInstance from "../config/axiosInstance";
-import { setUserDetails } from "../redux/slices/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { errorToastStyles, successToastStyles } from "../utils/toastStyles";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { genericErrorMessage } from "../utils/common";
+import { genderOptions } from "../utils/common";
 
-const EditProfile = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state?.user?.user);
-  const userId = useSelector((state) => state?.user?.userId);
-
+const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [gender, setGender] = useState(genderOptions[0].value);
+  const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
   const [about, setAbout] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [skills, setSkills] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName ?? "");
-      setLastName(user.lastName ?? "");
-      setDob(user.dob ?? "");
-      setGender(user.gender ?? "");
-      setAbout(user.about ?? "");
-      setImageUrl(user.imageUrl ?? "");
-      setSkills(user.skills ?? []);
-    }
-  }, [user]);
+    handleTokenPresent();
+  }, []);
 
-  const saveProfile = async () => {
-    const payload = {
-      userId,
-      firstName,
-      lastName,
-      gender,
-      dob,
-      about,
-      imageUrl,
-      skills,
-    };
+  const handleSignup = async (e) => {
+    e.preventDefault();
     try {
-      const res = await axiosInstance.patch("/updateUserProfile", payload);
-      const userDetails = res?.data?.data?.user;
+      const payload = {
+        firstName,
+        lastName,
+        password,
+        confirmPassword,
+        gender,
+        email,
+        dob,
+        about,
+        imageUrl,
+      };
+      const res = await axiosInstance.post("/signup", payload);
       toast(res?.data?.message, successToastStyles);
-      dispatch(setUserDetails(userDetails));
+      navigate("/");
     } catch (err) {
       toast(err?.response?.data?.message || genericErrorMessage, errorToastStyles);
     }
   };
 
+  const handleTokenPresent = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  };
+
   return (
-    <div className="flex justify-center my-18 gap-10">
-      <div className="flex justify-center items-center">
-        <div className="card bg-base-300 w-[650px] shadow-sm">
-          <div className="card-body">
-            <h2 className="card-title justify-center">Edit Profile</h2>
-            <div className="px-4">
+    <>
+      <Navbar />
+      <div className="flex justify-center items-center my-10 mb-20">
+        <div className="card bg-base-300 sm:w-[700px] w-11/12 shadow-sm">
+          <div className="card-body px-6">
+            <h2 className="card-title justify-center">Sign Up</h2>
+            <div>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Email ID</legend>
+                <input
+                  type="text"
+                  className="input outline-none focus:outline-none focus:ring-0 w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </fieldset>
+            </div>
+
+            <div>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Password</legend>
+                <input
+                  type="text"
+                  className="input outline-none focus:outline-none focus:ring-0 w-full"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </fieldset>
+            </div>
+
+            <div>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Confirm Password</legend>
+                <input
+                  type="text"
+                  className="input outline-none focus:outline-none focus:ring-0 w-full"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </fieldset>
+            </div>
+
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">First Name:</legend>
                 <input
@@ -71,7 +109,7 @@ const EditProfile = () => {
               </fieldset>
             </div>
 
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Last Name:</legend>
                 <input
@@ -83,7 +121,7 @@ const EditProfile = () => {
               </fieldset>
             </div>
 
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Photo URL:</legend>
                 <input
@@ -95,7 +133,7 @@ const EditProfile = () => {
               </fieldset>
             </div>
 
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Gender</legend>
                 <select
@@ -115,7 +153,7 @@ const EditProfile = () => {
               </fieldset>
             </div>
 
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">DOB</legend>
                 <input
@@ -127,7 +165,7 @@ const EditProfile = () => {
               </fieldset>
             </div>
 
-            <div className="px-4">
+            <div>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">About</legend>
                 <input
@@ -140,20 +178,22 @@ const EditProfile = () => {
             </div>
 
             <div className="card-actions justify-center mt-3">
-              <button className="btn btn-primary" onClick={saveProfile}>
-                Save Profile
+              <button className="btn btn-primary" onClick={(e) => handleSignup(e)}>
+                Sign Up
               </button>
             </div>
+            <p className=" mt-4 font-semibold">
+              Already have an account?{" "}
+              <Link to="/" className="text-blue-600">
+                Login
+              </Link>
+            </p>
           </div>
         </div>
       </div>
-
-      <UserCard
-        user={{ about, dateOfBirth: dob, firstName, lastName, gender, imageUrl, skills }}
-        isEditProfile
-      />
-    </div>
+      <Footer />
+    </>
   );
 };
 
-export default EditProfile;
+export default Signup;

@@ -25,7 +25,7 @@ const Navbar = () => {
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
         <Link to="/home" className="btn btn-ghost text-xl">
-          👩‍💻DevTinder
+          👩‍💻Meet&Greet
         </Link>
       </div>
       {localStorage.getItem("token") && (
